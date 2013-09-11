@@ -1,0 +1,18 @@
+{% extends '::base.html.twig' %}
+
+{% block css %}
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('bundles/msiadmin/css/base.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Search</h2>
+            {{ block('content') }}
+        </div>
+    </div>
+</div>
+{% endblock %}
