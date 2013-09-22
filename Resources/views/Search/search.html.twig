@@ -1,7 +1,7 @@
 {% extends 'MsiSearchBundle::layout.html.twig' %}
 
 {% block content %}
-<form method=GET action="{{ path('msi_search') }}" style="margin-bottom: 20px;">
+<form method=GET action="{{ path('msi_search_search_search') }}" style="margin-bottom: 20px;">
     <div class="input-group">
         <input class="form-control" value="{{ app.request.query.get('q') }}" name="q" type="text">
         <div class="input-group-btn">
@@ -10,9 +10,9 @@
     </div>
 </form>
 {% if app.request.query.get('q') %}
-<p class="lead">Search results for <strong>{{ app.request.query.get('q') }}</strong></p>
+<p class="lead">search results for <strong>{{ app.request.query.get('q') }}</strong></p>
 <ul class="nav nav-pills">
-    <li class="active"><a href="#">Summary</a></li>
+    <li class="active"><a href="#">summary</a></li>
 </ul>
 <hr>
 {% endif %}

@@ -1,3 +1,3 @@
-msi_search:
+msi_search_search_search:
     pattern:  /search
     defaults: { _controller: MsiSearchBundle:Search:search }
