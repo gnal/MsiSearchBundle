@@ -2,7 +2,7 @@
 
 namespace Msi\SearchBundle\Controller;
 
-use Msi\AdminBundle\Controller\Controller;
+use Msi\BaseBundle\Controller\Controller;
 
 class SearchController extends Controller
 {
