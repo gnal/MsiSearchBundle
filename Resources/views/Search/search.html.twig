@@ -10,10 +10,30 @@
     </div>
 </form>
 {% if app.request.query.get('q') %}
-<p class="lead">search results for <strong>{{ app.request.query.get('q') }}</strong></p>
-<ul class="nav nav-pills">
-    <li class="active"><a href="#">summary</a></li>
-</ul>
-<hr>
+    <p class="lead">{{ 'search_results_for'|trans }} <strong>{{ app.request.query.get('q') }}</strong></p>
+    <ul class="nav nav-pills">
+        <li class="active"><a href="{{ path('msi_search_search_search', {q: app.request.query.get('q')}) }}">{{ 'summary'|trans }}</a></li>
+        {% for search in searches %}
+            <li{% if app.request.query.get('t') == search.entity %} class="active"{% endif %}>
+                {% set title = 'entity.'~search.entity %}
+                <a href="{{ path('msi_search_search_search', {q: app.request.query.get('q'), t: search.entity}) }}">
+                    {{ title|transchoice(search.pager.count) }} ({{ search.pager.count }})
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+    <hr>
+    {% for search in searches %}
+        {% if search.active %}
+            <h3>
+                {% set title = 'entity.'~search.entity %}
+                <a href="{{ path('msi_search_search_search', {q: app.request.query.get('q'), t: search.entity}) }}">{{ title|transchoice(search.pager.count)|capitalize }} ({{ search.pager.count }})</a>
+            </h3>
+
+            {% for row in search.rows %}
+                {% include search.bundle~':Search:'~search.entity|lower~'_row.html.twig' %}
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
 {% endif %}
 {% endblock %}
