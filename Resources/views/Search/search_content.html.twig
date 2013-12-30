@@ -1,0 +1,35 @@
+<form method=GET action="{{ path('msi_search_search_search') }}" style="margin-bottom: 20px;">
+    <div class="input-group">
+        <input class="form-control" value="{{ app.request.query.get('q') }}" name="q" type="text">
+        <div class="input-group-btn">
+            <button type="submit" class="btn btn-default"><i class="fa fa-search fa-lg"></i></button>
+        </div>
+    </div>
+</form>
+{% if app.request.query.get('q') %}
+    <p class="lead">{{ 'search_results_for'|trans }} <strong>{{ app.request.query.get('q') }}</strong></p>
+    <ul class="nav nav-pills">
+        <li{% if app.request.query.get('t') == null %} class="active"{% endif %}><a href="{{ path('msi_search_search_search', {q: app.request.query.get('q')}) }}">{{ 'summary'|trans }}</a></li>
+        {% for search in searches %}
+            <li{% if app.request.query.get('t') == search.entity %} class="active"{% endif %}>
+                {% set title = 'entity.'~search.entity %}
+                <a href="{{ path('msi_search_search_search', {q: app.request.query.get('q'), t: search.entity}) }}">
+                    {{ title|transchoice(search.pager.count) }} ({{ search.pager.count }})
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+    <hr>
+    {% for search in searches %}
+        {% if search.active %}
+            <h3>
+                {% set title = 'entity.'~search.entity %}
+                <a href="{{ path('msi_search_search_search', {q: app.request.query.get('q'), t: search.entity}) }}">{{ title|transchoice(search.pager.count)|capitalize }} ({{ search.pager.count }})</a>
+            </h3>
+
+            {% for row in search.rows %}
+                {% include search.bundle~':Search:'~search.entity|lower~'_row.html.twig' %}
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
