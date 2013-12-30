@@ -11,7 +11,7 @@
     <ul class="nav nav-pills">
         <li{% if app.request.query.get('t') == null %} class="active"{% endif %}><a href="{{ path('msi_search_search_search', {q: app.request.query.get('q')}) }}">{{ 'summary'|trans }}</a></li>
         {% for i, search in searches %}
-            <li{% if app.request.query.get('t') == i %} class="active"{% endif %}>
+            <li{% if app.request.query.get('t', 9999) == i %} class="active"{% endif %}>
                 {% set title = 'entity.'~search.entity %}
                 <a href="{{ path('msi_search_search_search', {q: app.request.query.get('q'), t: i}) }}">
                     {{ title|transchoice(search.pager.count)|capitalize }} ({{ search.pager.count }})
