@@ -24,7 +24,7 @@ class SearchController extends Controller
                 $parameters['searches'][$k]['pager']->paginate($this->getRequest()->query->get('page', 1) ?: 1, 10);
                 $parameters['searches'][$k]['rows'] = $parameters['searches'][$k]['pager']->getIterator()->getArrayCopy();
 
-                if (!$this->getRequest()->query->get('t') || ($this->getRequest()->query->get('t') && $this->getRequest()->query->get('t') === $parts[1])) {
+                if (null === $this->getRequest()->query->get('t') || intval($this->getRequest()->query->get('t')) === $k) {
                     $parameters['searches'][$k]['active'] = true;
                 } else {
                     $parameters['searches'][$k]['active'] = false;
