@@ -9,7 +9,7 @@
 {% if app.request.query.get('q') %}
     <p class="lead">{{ 'search_results_for'|trans }} <strong>{{ app.request.query.get('q') }}</strong></p>
     <ul class="nav nav-pills">
-        <li{% if app.request.query.get('t') == null %} class="active"{% endif %}><a href="{{ path('msi_search_search_search', {q: app.request.query.get('q')}) }}">{{ 'summary'|trans }}</a></li>
+        <li{% if app.request.query.get('t') == null %} class="active"{% endif %}><a href="{{ path('msi_search_search_search', {q: app.request.query.get('q')}) }}">{{ 'Summary'|trans }}</a></li>
         {% for i, search in searches %}
             <li{% if app.request.query.get('t', 9999) == i %} class="active"{% endif %}>
                 {% set title = 'entity.'~search.entity %}
