@@ -17,7 +17,7 @@ class SearchController extends Controller
             foreach ($entities as $k => $entity) {
                 $parts = explode(':', $entity);
 
-                $repo = $this->getDoctrine()->getEntityManager()->getRepository($entity);
+                $repo = $this->getDoctrine()->getManager()->getRepository($entity);
                 $qb = $repo->getSearchQueryBuilder($q);
                 $parameters['searches'][$k]['bundle'] = $parts[0];
                 $parameters['searches'][$k]['entity'] = $parts[1];
