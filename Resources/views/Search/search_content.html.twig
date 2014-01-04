@@ -30,6 +30,10 @@
             {% for row in search.rows %}
                 {% include search.bundle~':Search:'~search.entity|lower~'_row.html.twig' %}
             {% endfor %}
+
+            {% if app.request.query.get('t') == null %}
+                <p class="text-right"><a href="{{ path('msi_search_search_search', {q: app.request.query.get('q'), t: i}) }}">{{ 'view_all_results'|trans({'%entity%': title|transchoice(search.pager.count)|lower}) }}</a></p>
+            {% endif %}
         {% endif %}
     {% endfor %}
 {% endif %}

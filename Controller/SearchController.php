@@ -10,6 +10,7 @@ class SearchController extends Controller
     {
         $parameters = [];
         $parameters['searches'] = [];
+        $t = $this->getRequest()->query->get('t');
 
         if ($q = $this->getRequest()->query->get('q')) {
             $entities = $this->container->getParameter('msi_search.entities');
@@ -21,10 +22,10 @@ class SearchController extends Controller
                 $parameters['searches'][$k]['bundle'] = $parts[0];
                 $parameters['searches'][$k]['entity'] = $parts[1];
                 $parameters['searches'][$k]['pager'] = $this->get('msi_admin.pager.factory')->create($qb);
-                $parameters['searches'][$k]['pager']->paginate($this->getRequest()->query->get('page', 1) ?: 1, 10);
+                $parameters['searches'][$k]['pager']->paginate($this->getRequest()->query->get('page', 1) ?: 1, $t === null ? 3 : 10);
                 $parameters['searches'][$k]['rows'] = $parameters['searches'][$k]['pager']->getIterator()->getArrayCopy();
 
-                if (null === $this->getRequest()->query->get('t') || intval($this->getRequest()->query->get('t')) === $k) {
+                if (null === $t || intval($t) === $k) {
                     $parameters['searches'][$k]['active'] = true;
                 } else {
                     $parameters['searches'][$k]['active'] = false;
