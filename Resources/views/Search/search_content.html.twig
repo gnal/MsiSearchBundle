@@ -33,6 +33,8 @@
 
             {% if app.request.query.get('t') == null and search.rows|length %}
                 <p class="text-right"><a href="{{ path('msi_search_search_search', {q: app.request.query.get('q'), t: i}) }}">{{ 'view_all_results'|trans({'%entity%': title|transchoice(search.pager.count)|lower}) }}</a></p>
+            {% else %}
+                {{ msi_pager_render(search.pager) }}
             {% endif %}
         {% endif %}
     {% endfor %}
