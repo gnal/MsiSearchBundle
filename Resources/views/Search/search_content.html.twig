@@ -19,19 +19,20 @@
             </li>
         {% endfor %}
     </ul>
-    <hr>
+
     {% for i, search in searches %}
-        {% if search.active %}
+        {% if search.active and search.rows|length %}
+            <hr>
             <h3>
                 {% set title = 'entity.'~search.entity %}
                 <a href="{{ path('msi_search_search_search', {q: app.request.query.get('q'), t: i}) }}">{{ title|transchoice(search.pager.count)|capitalize }} ({{ search.pager.count }})</a>
             </h3>
 
             {% for row in search.rows %}
-                {% include search.bundle~':Search:'~search.entity|lower~'_row.html.twig' %}
+                {% include search.bundle~':Search:'~search.entity|lower~'.html.twig' %}
             {% endfor %}
 
-            {% if app.request.query.get('t') == null and search.rows|length %}
+            {% if app.request.query.get('t') == null and search.pager.count > 3 %}
                 <p class="text-right"><a href="{{ path('msi_search_search_search', {q: app.request.query.get('q'), t: i}) }}">{{ 'view_all_results'|trans({'%entity%': title|transchoice(search.pager.count)|lower}) }}</a></p>
             {% else %}
                 {{ msi_pager_render(search.pager) }}
